@@ -1,0 +1,10 @@
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+
+Style/BlockComments:
+  Exclude:
+    - 'spec/**/*'
+
+Metrics/LineLength:
+  Max: 112
