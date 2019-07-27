@@ -96,6 +96,7 @@ GEM
     bindex (0.8.1)
     builder (3.2.3)
     byebug (11.0.1)
+    coderay (1.1.2)
     concurrent-ruby (1.1.5)
     contracts (0.16.0)
     crass (1.0.4)
@@ -124,6 +125,11 @@ GEM
     nio4r (2.4.0)
     nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    pry-rails (0.3.9)
+      pry (>= 0.10.4)
     puma (3.12.1)
     rack (2.0.7)
     rack-test (1.1.0)
@@ -181,6 +187,7 @@ DEPENDENCIES
   byebug
   contracts
   jbuilder (~> 2.5)
+  pry-rails
   puma (~> 3.11)
   rails!
   rspec-rails (~> 3.8)

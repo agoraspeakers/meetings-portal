@@ -13,8 +13,7 @@ gem 'contracts'
 group :development, :test do
   # debugging
   gem 'byebug', platforms: [:mri]
-  # testing
-  gem 'rspec-rails', '~> 3.8'
+  gem 'pry-rails'
 end
 
 group :development do
@@ -24,4 +23,5 @@ end
 
 group :test do
   gem 'simplecov', require: false
+  gem 'rspec-rails', '~> 3.8'
 end
