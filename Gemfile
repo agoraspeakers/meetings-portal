@@ -11,7 +11,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'contracts'
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # debugging
+  gem 'byebug', platforms: [:mri]
+  # testing
+  gem 'rspec-rails', '~> 3.8'
 end
 
 group :development do
