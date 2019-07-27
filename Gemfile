@@ -18,6 +18,8 @@ group :development, :test do
   # debugging
   gem 'byebug', platforms: [:mri]
   gem 'pry-rails'
+  # documentation
+  gem 'yard'
 end
 
 group :development do
