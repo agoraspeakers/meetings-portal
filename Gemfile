@@ -21,3 +21,7 @@ group :development do
   gem 'web-console', github: 'rails/web-console'
   gem 'spring'
 end
+
+group :test do
+  gem 'simplecov', require: false
+end
