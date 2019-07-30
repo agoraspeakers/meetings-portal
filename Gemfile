@@ -9,6 +9,7 @@ gem 'rails', github: 'rails/rails', branch: '6-0-stable'
 
 gem 'contracts'
 gem 'database_validations'
+gem 'devise'
 gem 'jbuilder', '~> 2.5'
 gem 'puma', '~> 3.11'
 gem 'rubocop', require: false

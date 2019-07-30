@@ -8,3 +8,5 @@ Style/BlockComments:
 
 Metrics/LineLength:
   Max: 112
+  Exclude:
+    - 'config/**/*'
