@@ -14,6 +14,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'puma', '~> 3.11'
 gem 'rubocop', require: false
 gem 'sqlite3'
+gem 'webpacker', '~> 4.0', '>= 4.0.7'
 
 group :development, :test do
   # debugging

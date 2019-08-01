@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - 'bin/**/*'
+    - 'node_modules/**/*'
 
 Style/BlockComments:
   Exclude:
