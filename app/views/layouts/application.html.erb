@@ -13,10 +13,10 @@
     <p class="alert"><%= alert %></p>
 
     <% if current_user %>
-      <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+      <%= button_to 'Logout', destroy_user_session_path, method: :delete %>
     <% else %>
-      <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
-      <%= link_to 'Login', new_user_session_path %>
+      <%= button_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>
+      <%= button_to 'Login', new_user_session_path %>
     <% end %>
     <%= yield %>
   </body>
