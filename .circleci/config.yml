@@ -32,9 +32,9 @@ jobs:
             bundle install --jobs=4 --retry=3 --path vendor/bundle
 
       - run:
-        name: install yarn
-        comand: |
-          yarn install --check-files
+          name: install yarn
+          comand: |
+            yarn install --check-files
 
       - save_cache:
           paths:
@@ -51,7 +51,7 @@ jobs:
           name: run tests
           command: |
             mkdir /tmp/test-results
-            TEST_FILES="$("spec/**/*_spec.rb")"
+            TEST_FILES="$( circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings )"
 
             bundle exec rspec \
               --format progress \
