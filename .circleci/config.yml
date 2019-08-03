@@ -33,7 +33,7 @@ jobs:
 
       - run:
           name: install yarn
-          comand: |
+          command: |
             yarn install --check-files
 
       - save_cache:
@@ -58,8 +58,7 @@ jobs:
               --format RspecJunitFormatter \
               --out /tmp/test-results/rspec.xml \
               --format progress \
-              $TEST_FILES | \
-            circleci tests split --split-by=timings
+              $TEST_FILES
 
       # collect reports
       - store_test_results:
