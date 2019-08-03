@@ -31,7 +31,7 @@ jobs:
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
 
-      -run:
+      - run:
         name: install yarn
         comand: |
           yarn install --check-files
