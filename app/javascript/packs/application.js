@@ -17,7 +17,6 @@
 // import "./application.scss";
 
 import './stylesheet.scss'
-import 'bootstrap/dist/js/bootstrap';
 
 import Rails from 'rails-ujs';
 import Turbolinks from 'turbolinks';
