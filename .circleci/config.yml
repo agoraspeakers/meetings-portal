@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build:
+  rspec:
     docker:
       # specify the version you desire here
       - image: circleci/ruby:2.6.3-node-browsers
@@ -19,17 +19,25 @@ jobs:
     steps:
       - checkout
 
-      # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-bundler
 
       - run:
           name: install bundler
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-yarn
 
       - run:
           name: install yarn
@@ -38,31 +46,75 @@ jobs:
 
       - save_cache:
           paths:
-            - ./vendor/bundle
             - ./node_modules
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}-{{ checksum "yarn.lock" }}
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
 
-      # Database setup
       - run: bundle exec rake db:create
       - run: bundle exec rake db:schema:load
 
-      # run tests!
       - run:
           name: run tests
           command: |
             mkdir /tmp/test-results
             TEST_FILES="$( circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings )"
 
-            bundle exec rspec \
-              --format progress \
-              --format RspecJunitFormatter \
-              --out /tmp/test-results/rspec.xml \
-              --format progress \
+            bundle exec rspec --format progress \
+              --format RspecJunitFormatter --out /tmp/test-results/rspec.xml \
               $TEST_FILES
 
-      # collect reports
       - store_test_results:
           path: /tmp/test-results
       - store_artifacts:
           path: /tmp/test-results
           destination: test-results
+
+  rubocop:
+    docker:
+      # specify the version you desire here
+      - image: circleci/ruby:2.6.3-node-browsers
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-bundler
+
+      - run:
+          name: install bundler
+          command: |
+            bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: run rubocop
+          command: |
+            mkdir /tmp/test-results
+
+            bundle exec rubocop --format simple
+
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - rspec
+      - rubocop

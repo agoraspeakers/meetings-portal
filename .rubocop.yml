@@ -1,9 +1,10 @@
 AllCops:
   Exclude:
     - 'bin/**/*'
-    - 'node_modules/**/*'
     - 'db/schema.rb'
     - 'db/migrate/*'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
 
 Style/BlockComments:
   Exclude:
