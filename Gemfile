@@ -12,6 +12,7 @@ gem 'database_validations'
 gem 'devise'
 gem 'jbuilder', '~> 2.5'
 gem 'omniauth-facebook'
+gem 'omniauth-rails_csrf_protection'
 gem 'puma', '~> 3.11'
 gem 'rubocop', require: false
 gem 'sqlite3'
