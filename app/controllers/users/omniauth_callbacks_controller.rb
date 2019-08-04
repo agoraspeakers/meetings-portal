@@ -4,6 +4,7 @@
 module Users
   # OmniauthCallbacks controller
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+    # Facebook's callback action
     def facebook
       @user = User.from_omniauth(request.env['omniauth.auth'])
 
@@ -16,6 +17,7 @@ module Users
       end
     end
 
+    # Failure's callback action
     def failure
       redirect_to root_path
     end
