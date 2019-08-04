@@ -8,6 +8,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
 
+  # Used to fill registration form when registration via facebook failed
+  # Gets email address from session and fills email field in user instance
   def self.new_with_session(params, session)
     super.tap do |user|
       data = session.dig(:'devise.facebook_data', :extra, :raw_info)
@@ -15,6 +17,7 @@ class User < ApplicationRecord
     end
   end
 
+  # Finds existing user by provider and uid fields
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email

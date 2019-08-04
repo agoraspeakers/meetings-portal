@@ -2,5 +2,6 @@
 
 # Pages controller
 class PagesController < ApplicationController
+  # index action
   def index; end
 end
