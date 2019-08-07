@@ -17,7 +17,8 @@ class User < ApplicationRecord
     end
   end
 
-  # Finds existing user by provider and uid fields
+  # Finds existing user or creates new by provider and uid fields
+  # Assigns email, password, name and image if new user is creating
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email

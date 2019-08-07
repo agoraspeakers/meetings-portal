@@ -14,3 +14,7 @@ Metrics/LineLength:
   Max: 112
   Exclude:
     - 'config/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'

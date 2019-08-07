@@ -19,6 +19,9 @@ gem 'webpacker', '~> 4.0', '>= 4.0.7'
 gem 'bundled-without'
 
 group :development, :test do
+  gem 'factory_bot_rails'
+  gem 'faker', '~> 2.1'
+
   # debugging
   gem 'byebug', platforms: [:mri]
   gem 'pry-rails'
