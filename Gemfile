@@ -16,6 +16,8 @@ gem 'rubocop', require: false
 gem 'sqlite3'
 gem 'webpacker', '~> 4.0', '>= 4.0.7'
 
+gem 'bundled-without'
+
 group :development, :test do
   # debugging
   gem 'byebug', platforms: [:mri]
