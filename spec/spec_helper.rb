@@ -18,7 +18,7 @@
 
 require 'simplecov'
 SimpleCov.start 'rails'
-SimpleCov.minimum_coverage 19
+SimpleCov.minimum_coverage 45
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
