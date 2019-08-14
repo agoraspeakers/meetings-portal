@@ -55,7 +55,7 @@ RSpec.describe User, type: :model do
 
     context 'when user exists' do
       let(:user) { create(:user) }
-      let(:auth) { double(provider: user.provider, uid: user.uid) }
+      let(:auth) { OmniAuth::AuthHash.new(provider: user.provider, uid: user.uid) }
 
       it 'finds user by provider and uid fields' do
         expect(subject).to eq(user)
@@ -64,14 +64,10 @@ RSpec.describe User, type: :model do
 
     context 'when user does not exist' do
       let(:auth) do
-        double(
+        OmniAuth::AuthHash.new(
           provider: 'facebook',
           uid: Faker::Internet.unique.uuid,
-          info: double(
-            email: Faker::Internet.unique.email,
-            name: Faker::Name.name,
-            image: nil
-          )
+          info: { email: Faker::Internet.unique.email, name: Faker::Name.name, image: nil }
         )
       end
 
