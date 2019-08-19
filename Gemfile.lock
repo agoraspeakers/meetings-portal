@@ -271,6 +271,7 @@ DEPENDENCIES
   factory_bot_rails
   faker (~> 2.1)
   jbuilder (~> 2.5)
+  omniauth
   omniauth-facebook
   omniauth-rails_csrf_protection
   pry-rails
