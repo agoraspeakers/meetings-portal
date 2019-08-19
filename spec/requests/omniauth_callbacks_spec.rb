@@ -133,7 +133,7 @@ RSpec.describe Users::OmniauthCallbacksController, type: :request do
   end
 
   context 'failures callback action' do
-    before { get users_auth_failure_path }
+    before { post users_auth_failure_path }
     it 'redirects to root path' do
       expect(response).to redirect_to root_path
     end
