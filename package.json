@@ -15,6 +15,6 @@
     "webpack-dev-server": "^3.8.0"
   },
   "scripts": {
-    "stylelint": "stylelint app/javascript/stylesheets/*"
+    "stylelint-all": "stylelint app/javascript/stylesheets/*"
   }
 }
