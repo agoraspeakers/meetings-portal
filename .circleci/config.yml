@@ -147,6 +147,24 @@ jobs:
           path: /tmp/test-results
           destination: test-results
 
+  eslint:
+    docker:
+      - image: circleci/ruby:2.6.3-node-browsers
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run: yarn install
+      - run: yarn eslint-all
+
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+
   yard:
     docker:
       - image: circleci/ruby:2.6.3
@@ -211,5 +229,6 @@ workflows:
       - rspec
       - rubocop
       - stylelint
+      - eslint
       - yard
       - bundled-without
