@@ -56,6 +56,15 @@ To check if all written styles have correct syntax, please type:
 To check if only one file has correct syntax, please type:
 - `yarn stylelint path_to_scss_file`
 
+### JavaScript
+We are using ESLint to check syntax in JavaScript files.
+
+To check if all written js files have correct syntax, please type:
+- `yarn eslint-all`
+
+To check if only one file has correct syntax, please type:
+- `yarn eslint path_to_scss_file`
+
 ## Facebook data
 For now, the Meetings Portal application retrieves only [default user's data](https://developers.facebook.com/docs/facebook-login/permissions/#reference-default) from facebook.
 
