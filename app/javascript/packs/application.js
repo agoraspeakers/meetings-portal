@@ -16,9 +16,9 @@
 // const imagePath = (name) => images(name, true)
 // import "./application.scss";
 
-require("@rails/ujs").start()
-require("turbolinks").start()
-require("@rails/activestorage").start()
-require("channels")
+import '../stylesheets/application.scss';
 
-import '../stylesheets/application'
+require('@rails/ujs').start();
+require('turbolinks').start();
+require('@rails/activestorage').start();
+require('channels');
