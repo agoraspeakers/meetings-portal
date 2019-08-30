@@ -4,16 +4,16 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe '#new_with_session' do
-    subject {User.new_with_session(params, session)}
-    let(:params) {{}}
+    subject { User.new_with_session(params, session) }
+    let(:params) { {} }
     let(:session) do
       {
           'devise.facebook_data':
               OmniAuth::AuthHash.new(
                   provider: 'facebook',
                   uid: '1234567890',
-                  info: {email: 'example@example.com', id: '1234567890', name: 'Johnnie Walker'},
-                  extra: {raw_info: {email: 'example@example.com'}}
+                  info: { email: 'example@example.com', id: '1234567890', name: 'Johnnie Walker' },
+                  extra: { raw_info: { email: 'example@example.com' } }
               )
       }
     end
@@ -26,7 +26,7 @@ RSpec.describe User, type: :model do
       end
 
       context 'when session does not contain email' do
-        let(:session) { { } }
+        let(:session) {{}}
         it 'does not assign email to user' do
           expect(subject.email).to eq('')
         end
@@ -34,7 +34,7 @@ RSpec.describe User, type: :model do
     end
 
     context 'when user has assigned email' do
-      let(:params) {{email: 'first_email@example.com'}}
+      let(:params) { { email: 'first_email@example.com' } }
       context 'when session contains email' do
         it 'does not assign email to user' do
           expect(subject.email).to eq('first_email@example.com')
@@ -42,7 +42,7 @@ RSpec.describe User, type: :model do
       end
 
       context 'when session does not contain email' do
-        let(:session) {{}}
+        let(:session) { {} }
         it 'does not assign email to user' do
           expect(subject.email).to eq('first_email@example.com')
         end
@@ -51,11 +51,11 @@ RSpec.describe User, type: :model do
   end
 
   describe '#from_omniauth' do
-    subject {User.from_omniauth(auth)}
+    subject { User.from_omniauth(auth) }
 
     context 'when user exists' do
-      let(:user) {create(:user)}
-      let(:auth) {OmniAuth::AuthHash.new(provider: user.provider, uid: user.uid)}
+      let(:user) { create(:user) }
+      let(:auth) { OmniAuth::AuthHash.new(provider: user.provider, uid: user.uid) }
 
       it 'finds user by provider and uid fields' do
         expect(subject).to eq(user)
@@ -67,12 +67,12 @@ RSpec.describe User, type: :model do
         OmniAuth::AuthHash.new(
             provider: 'facebook',
             uid: Faker::Internet.unique.uuid,
-            info: {email: Faker::Internet.unique.email, name: Faker::Name.name, image: nil}
+            info: { email: Faker::Internet.unique.email, name: Faker::Name.name, image: nil }
         )
       end
 
       it 'creates new user with given provider and uid fields' do
-        expect {subject}.to change(User, :count).by(1)
+        expect { subject }.to change(User, :count).by(1)
       end
 
       it 'assigns email, name and image to new user' do
