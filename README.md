@@ -22,8 +22,9 @@ Usual installation path requires:
 
 0. install JavaScript engine like `nodejs`
 1. install [`ruby`](ruby-lang.org)
-2. install project dependencies: `bundle install`
-3. install javascript dependencies: `yarn install`
+2. install foreman: `gem install foreman`
+3. install project dependencies: `bundle install`
+4. install javascript dependencies: `yarn install`
 
 ## Running project
 
@@ -41,9 +42,8 @@ Usual installation path requires:
     4. go to Settings -> Basic, there you can find your App ID and App Secret
     
 2. *OPTIONAL:* run `rails credentials:edit --environment test` to set credentials in test environment
-3. run `./bin/webpack-dev-server` to start the webpack server
-4. run `rails server` to start the application
-5. open browser at http://localhost:3000
+3. run `foreman start` to start the rails and the webpack-dev servers
+4. open browser at http://localhost:3000
 
 ## Linting
 
@@ -63,7 +63,7 @@ To check if all written js files have correct syntax, please type:
 - `yarn eslint-all`
 
 To check if only one file has correct syntax, please type:
-- `yarn eslint path_to_scss_file`
+- `yarn eslint path_to_js_file`
 
 ## Facebook data
 For now, the Meetings Portal application retrieves only [default user's data](https://developers.facebook.com/docs/facebook-login/permissions/#reference-default) from facebook.
