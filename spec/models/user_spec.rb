@@ -8,13 +8,13 @@ RSpec.describe User, type: :model do
     let(:params) { {} }
     let(:session) do
       {
-          'devise.facebook_data':
-              OmniAuth::AuthHash.new(
-                  provider: 'facebook',
-                uid: '1234567890',
-                info: { email: 'example@example.com', id: '1234567890', name: 'Johnnie Walker' },
-                extra: { raw_info: { email: 'example@example.com' } }
-              )
+        'devise.facebook_data':
+          OmniAuth::AuthHash.new(
+              provider: 'facebook',
+            uid: '1234567890',
+            info: { email: 'example@example.com', id: '1234567890', name: 'Johnnie Walker' },
+            extra: { raw_info: { email: 'example@example.com' } }
+          )
       }
     end
 
@@ -68,7 +68,7 @@ RSpec.describe User, type: :model do
             provider: 'facebook',
           uid: Faker::Internet.unique.uuid,
           info: { email: Faker::Internet.unique.email, name: Faker::Name.name, image: nil }
-          )
+        )
       end
 
       it 'creates new user with given provider and uid fields' do
