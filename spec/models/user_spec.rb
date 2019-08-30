@@ -11,9 +11,9 @@ RSpec.describe User, type: :model do
           'devise.facebook_data':
               OmniAuth::AuthHash.new(
                   provider: 'facebook',
-                  uid: '1234567890',
-                  info: { email: 'example@example.com', id: '1234567890', name: 'Johnnie Walker' },
-                  extra: { raw_info: { email: 'example@example.com' } }
+                uid: '1234567890',
+                info: { email: 'example@example.com', id: '1234567890', name: 'Johnnie Walker' },
+                extra: { raw_info: { email: 'example@example.com' } }
               )
       }
     end
@@ -26,7 +26,7 @@ RSpec.describe User, type: :model do
       end
 
       context 'when session does not contain email' do
-        let(:session) {{}}
+        let(:session) { {} }
         it 'does not assign email to user' do
           expect(subject.email).to eq('')
         end
@@ -66,9 +66,9 @@ RSpec.describe User, type: :model do
       let(:auth) do
         OmniAuth::AuthHash.new(
             provider: 'facebook',
-            uid: Faker::Internet.unique.uuid,
-            info: { email: Faker::Internet.unique.email, name: Faker::Name.name, image: nil }
-        )
+          uid: Faker::Internet.unique.uuid,
+          info: { email: Faker::Internet.unique.email, name: Faker::Name.name, image: nil }
+          )
       end
 
       it 'creates new user with given provider and uid fields' do
