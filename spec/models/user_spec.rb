@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
       {
         'devise.facebook_data':
           OmniAuth::AuthHash.new(
-              provider: 'facebook',
+            provider: 'facebook',
             uid: '1234567890',
             info: { email: 'example@example.com', id: '1234567890', name: 'Johnnie Walker' },
             extra: { raw_info: { email: 'example@example.com' } }
@@ -65,7 +65,7 @@ RSpec.describe User, type: :model do
     context 'when user does not exist' do
       let(:auth) do
         OmniAuth::AuthHash.new(
-            provider: 'facebook',
+          provider: 'facebook',
           uid: Faker::Internet.unique.uuid,
           info: { email: Faker::Internet.unique.email, name: Faker::Name.name, image: nil }
         )
