@@ -2,6 +2,9 @@
 
 # User
 class User < ApplicationRecord
+  enum role: [:admin]
+  before_create :set_first_record_as_admin
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable
   devise :database_authenticatable, :registerable,
@@ -26,5 +29,15 @@ class User < ApplicationRecord
       user.name = auth.info.name # assuming the user model has a name
       user.image = auth.info.image # assuming the user model has an image
     end
+  end
+
+  private
+
+  # Currently have to be unscoped because #ActiveRecord::Relation::create method adds scope to query
+  # in Rails 6.1 class level methods will no longer inherit scoping
+  # in Rails 6.0 it is already deprecated: https://github.com/rails/rails/pull/35280
+  # After upgrade to Rails 6.1, please remove the `unscoped` method from code below and fix specs
+  def set_first_record_as_admin
+    self.role = :admin unless User.unscoped.any?
   end
 end
