@@ -1,6 +1,7 @@
 <div class="row justify-content-center">
   <div class="col-sm-4">
     <h1><%= t('.title', resource: resource_name.to_s.humanize) %></h1>
+<!--    <h1><%#= @location.name %></h1>-->
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
@@ -35,10 +36,12 @@
         <small class="form-text text-muted"><%= t('.we_need_your_current_password_to_confirm_your_changes') %></small>
       </div>
 
-      <div class="form-group">
-        <%= f.label :location %>
-        <%= f.text_field :location, class: 'form-control' %>
-      </div>
+      <%= fields_for :location do |location_form| %>
+        <div class="form-group">
+          <%= location_form.label :location %>
+          <%= location_form.text_field :name, class: 'form-control' %>
+        </div>
+      <% end %>
 
       <div class="form-group">
         <%= f.submit t('.update'), class: 'btn btn-primary' %>

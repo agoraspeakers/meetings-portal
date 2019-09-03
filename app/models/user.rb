@@ -8,6 +8,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
 
+  has_many :user_locations
+  has_many :locations, through: :user_locations
+  accepts_nested_attributes_for :user_locations
+
+
   # Used to fill registration form when registration via facebook failed
   # Gets email address from session and fills email field in user instance
   def self.new_with_session(params, session)
