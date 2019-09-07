@@ -15,6 +15,7 @@ gem 'omniauth-rails_csrf_protection'
 gem 'puma', '~> 3.11'
 gem 'rubocop', require: false
 gem 'sqlite3'
+gem 'geocoder'
 gem 'webpacker', '~> 4.0', '>= 4.0.7'
 
 gem 'bundled-without'

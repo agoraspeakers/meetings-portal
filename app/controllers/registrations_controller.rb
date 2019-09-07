@@ -1,24 +1,34 @@
 class RegistrationsController < Devise::RegistrationsController
+
   def new
     super
   end
 
   def create
-    super
-    perform_create(params[:location][:name])
+    @location = initialize_location
+    #TODO: Improve error handling
+    if @location.nil?
+      flash[:error] = 'Could not save user. Invalid address.'
+      redirect_to new_user_registration_path
+    else
+      super
+      UserLocation.create!(user: current_user, location: @location, start_date: DateTime.now) if resource.save
+    end
   end
 
   def update
-    if resource.save
-      provided_location = params[:location][:name]
-      user_location = perform_create(provided_location)
-      if user_location.nil?
-        flash[:alert] = "Invalid address."
-        redirect_to :edit_user_registration
+    if current_user.valid_password?(params[:user][:current_password])
+      super
+      @location = initialize_location
+      if location.nil?
+        flash.now[:alert] = 'Invalid address location.'
       else
-        super
         end_current_user_location
+        UserLocation.create!(user: current_user, location: @location, start_date: DateTime.now)
       end
+    else
+      flash[:alert] = 'Current password is required to save the changes.'
+      redirect_to edit_user_registration_path
     end
   end
 
@@ -29,15 +39,21 @@ class RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def perform_create(location_str)
-    location = Location.string_location(location_str)
-    unless location.nil?
-      UserLocation.create!(user: current_user, location: location, start_date: DateTime.now)
-    end
+  def end_current_user_location
+    user_location = current_user.user_locations.find_by(end_date: nil)
+    user_location.end_date = DateTime.now
+    user_location.save
   end
 
-  def end_current_user_location
-    current_user.user_locations.find_by(end_date: nil).end_date = DateTime.now
-    current_user.save
+  def initialize_location
+    Location.initialize_from_string(params[:location][:name])
   end
+
+  protected
+
+  def after_update_path_for(resource)
+    #TODO: This only works for success case.
+    edit_user_registration_path(resource)
+  end
+
 end
