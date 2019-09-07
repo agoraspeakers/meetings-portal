@@ -1,0 +1,24 @@
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col"><%=t('.name') %></th>
+      <th scope="col"><%=t('.email') %></th>
+      <th scope="col"><%=t('users.user.is_admin') %></th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td> <%= user.name %></td>
+        <td> <%= user.email %></td>
+        <td> <%= user.admin? %></td>
+        <td>
+          <%= link_to t('.show'), user_path(user) %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,5 +1,25 @@
 en:
   layouts:
-    application:
-      home: "Home"
+    navigation:
       title: "Meetings portal"
+      home: "Home"
+      sign_in_with_facebook: "Sign in with Facebook"
+      login: "Login"
+      logout: "Logout"
+      users: "Users"
+  users:
+    set_admin:
+      role_updated: "Role has been successfully updated."
+      role_not_updated: "Role has not been updated."
+    index:
+      show: "Show"
+      name: "Name"
+      email: "Email"
+    show:
+      user_profile: "User profile"
+    user:
+      admin: "Admin"
+      save: "Save"
+      is_admin: "Is admin?"
+      admin_settings: "Admin settings"
+      set_user_role: "Set user role"

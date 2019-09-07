@@ -66,4 +66,7 @@ RSpec.configure do |config|
 
   # Set OmniAuth's test mode
   OmniAuth.config.test_mode = true
+
+  # Include syntaxes to sign in and out a user in Request type specs
+  config.include Devise::Test::IntegrationHelpers, type: :request
 end
