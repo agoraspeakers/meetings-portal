@@ -7,6 +7,7 @@ en:
       login: "Login"
       logout: "Logout"
       users: "Users"
+      profile: "Profile"
   users:
     set_admin:
       role_updated: "Role has been successfully updated."
@@ -23,3 +24,5 @@ en:
       is_admin: "Is admin?"
       admin_settings: "Admin settings"
       set_user_role: "Set user role"
+  policy:
+    not_authorized: "You are not authorized to perform this action."

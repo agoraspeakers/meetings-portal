@@ -4,18 +4,20 @@
     <h6 class="card-subtitle mb-2 text-muted"><%= user.email %></h6>
     <div class="card-body">
       <p class="card-text"><%= t('users.user.is_admin') %> : <%= user.admin? %></p>
-      <hr>
-      <h5><%= t('.admin_settings') %>:</h5>
-      <div class="card-text"><%= t('.set_user_role') %>: <br>
-        <%= form_tag(set_admin_user_path(user), method: "patch", class: "form") do %>
-          <div class="form-group mb-2">
-            <%= hidden_field_tag 'role[admin]', false %>
-            <%= check_box_tag 'role[admin]', true, user.admin? %>
-            <%= label_tag t('.admin') %>
-          </div>
-          <%= submit_tag t('.save'), class: "btn btn-primary mb-2" %>
-        <% end %>
-      </div>
+      <% if current_user&.admin? %>
+        <hr>
+        <h5><%= t('.admin_settings') %>:</h5>
+        <div class="card-text"><%= t('.set_user_role') %>: <br>
+          <%= form_tag(set_admin_user_path(user), method: "patch", class: "form") do %>
+            <div class="form-group mb-2">
+              <%= hidden_field_tag 'role[admin]', false %>
+              <%= check_box_tag 'role[admin]', true, user.admin? %>
+              <%= label_tag t('.admin') %>
+            </div>
+            <%= submit_tag t('.save'), class: "btn btn-primary mb-2" %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

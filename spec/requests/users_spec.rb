@@ -4,51 +4,104 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :request do
   let(:users) { create_list(:user, 10) }
-  let(:user) { users.first }
-  before(:each) { sign_in user }
+  let(:admin) { users.find { |u| u.role.eql? 'admin' } }
+  let(:user) { users.find { |u| u.role.eql? nil } }
+  let(:logged_user) {}
+  before { sign_in logged_user }
 
   describe 'GET /users' do
     before { get users_path }
 
-    it { expect(response).to have_http_status(200) }
-    it { expect(response).to render_template(:index) }
-    it { expect(response.body).to include(*users.map(&:name), *users.map(&:email)) }
+    context 'when user logged in' do
+      let(:logged_user) { user }
+
+      it { expect(response).to have_http_status(302) }
+      it { expect(response).to redirect_to(root_path) }
+      it 'shows alert: not authorized' do
+        follow_redirect!
+        expect(response.body).to include(I18n.t('policy.not_authorized'))
+      end
+    end
+
+    context 'when admin logged in' do
+      let(:logged_user) { admin }
+
+      it { expect(response).to have_http_status(200) }
+      it { expect(response).to render_template(:index) }
+    end
   end
 
-  describe 'GET /farms/show' do
+  describe 'GET /users/show' do
     before { get user_path(user) }
 
-    it { expect(response).to have_http_status(200) }
-    it { expect(response).to render_template(:show) }
-    it { expect(response.body).to include(user.name, user.email) }
+    context 'when user logged in' do
+      context 'when user shows himself profile' do
+        let(:logged_user) { user }
+
+        it { expect(response).to have_http_status(200) }
+        it { expect(response).to render_template(:show) }
+      end
+
+      context 'when user shows other user profile' do
+        let(:logged_user) { users.find { |u| u.role.eql?(nil) && u.id != user.id } }
+
+        it { expect(response).to have_http_status(302) }
+        it { expect(response).to redirect_to(root_path) }
+        it 'shows alert: not authorized' do
+          follow_redirect!
+          expect(response.body).to include(I18n.t('policy.not_authorized'))
+        end
+      end
+    end
+
+    context 'when admin logged in' do
+      let(:logged_user) { admin }
+
+      it { expect(response).to have_http_status(200) }
+      it { expect(response).to render_template(:show) }
+    end
   end
 
   describe 'PATCH /users/1' do
-    let(:second_user) { users.second }
     let(:allow_update) {}
 
     before do
       allow_any_instance_of(User).to receive(:update).and_return(allow_update)
-      patch set_admin_user_path(second_user), params: { role: { admin: true } }
+      patch set_admin_user_path(user), params: { role: { admin: true } }
     end
 
-    context 'when set/unset admin role successfully updated' do
-      let(:allow_update) { true }
+    context 'when user logged in' do
+      let(:logged_user) { user }
 
       it { expect(response).to have_http_status(302) }
-      it { expect(response).to redirect_to(user_path(second_user)) }
-      it 'shows notice: Role has been successfully updated' do
+      it { expect(response).to redirect_to(root_path) }
+      it 'shows alert: not authorized' do
         follow_redirect!
-        expect(response.body).to include(I18n.t('users.set_admin.role_updated'))
+        expect(response.body).to include(I18n.t('policy.not_authorized'))
       end
     end
 
-    context 'when set/unset admin role failed' do
-      let(:allow_update) { false }
+    context 'when admin logged in' do
+      let(:logged_user) { admin }
 
-      it { expect(response).to have_http_status(200) }
-      it { expect(response).to render_template(:show) }
-      it { expect(response.body).to include(I18n.t('users.set_admin.role_not_updated')) }
+      context 'when admin role successfully updated' do
+        let(:allow_update) { true }
+
+        it { expect(response).to have_http_status(302) }
+        it { expect(response).to redirect_to(user_path(user)) }
+        it 'shows notice: role updated' do
+          follow_redirect!
+          expect(response.body).to include(I18n.t('users.set_admin.role_updated'))
+        end
+      end
+
+      context 'when admin role update failed' do
+        let(:allow_update) { false }
+
+        it { expect(response).to have_http_status(200) }
+        it { expect(response).to render_template(:show) }
+        it { expect(response.body).to include(I18n.t('users.set_admin.role_not_updated')) }
+      end
     end
   end
 end

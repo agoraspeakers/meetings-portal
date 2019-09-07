@@ -14,14 +14,19 @@
             <span class="sr-only">(current)</span>
           <% end %>
         </li>
-        <li class="nav-item">
-          <%= link_to t('.users'), users_path, class: 'nav-link' %>
-        </li>
+        <% if current_user&.admin? %>
+          <li class="nav-item">
+            <%= link_to t('.users'), users_path, class: 'nav-link' %>
+          </li>
+        <% end %>
       </ul>
       <!-- Right navigation -->
       <ul class="navbar-nav ml-auto">
         <!-- Nav Item - User authentication -->
         <% if current_user %>
+          <li class="nav-item">
+            <%= link_to t('.profile'), user_path(current_user), class: 'nav-link' %>
+          </li>
           <li class="nav-item">
             <%= link_to t('.logout'), destroy_user_session_path, method: :delete, class: 'nav-link' %>
           </li>

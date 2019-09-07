@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   # Gets all users
   def index
-    @users = User.all
+    @users = authorize User.all
   end
 
   # GET /users/1
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
   # Sets user by given id
   def set_user
-    @user = User.find(params[:id])
+    @user = authorize User.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
