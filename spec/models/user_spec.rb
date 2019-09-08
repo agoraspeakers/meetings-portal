@@ -82,43 +82,4 @@ RSpec.describe User, type: :model do
       end
     end
   end
-
-  describe '#create' do
-    context 'can save user' do
-      it 'is valid with a name, email, password, password_confirmation and location' do
-        user = build(:user)
-        expect(user).to be_valid
-      end
-
-      it 'is valid without location' do
-        user = build(:user, location: nil)
-        expect(user).to be_valid
-      end
-    end
-  end
-
-  describe '#create' do
-    context 'can save user' do
-      it 'is valid with a name, email, password, password_confirmation and location' do
-        user = build(:user)
-        expect(user).to be_valid
-      end
-
-      it 'is valid with a name, email, password, password_confirmation and without location' do
-        user = build(:user, location: nil)
-        expect(user).to be_valid
-      end
-    end
-  end
-
-  describe '#edit' do
-    context 'can edit user' do
-      it 'location' do
-        updated_location = 'Gorzów Wielkopolski, Poland'
-        user = build(:user, location: updated_location)
-        expect(user).to be_valid
-        expect(user.location).to eq(updated_location)
-      end
-    end
-  end
 end

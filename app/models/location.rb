@@ -1,20 +1,15 @@
+# frozen_string_literal: true
+
+# Location
 class Location < ApplicationRecord
   has_many :user_locations
   has_many :users, through: :user_locations
 
-  validate :validate_location
-
-  # geocoded_by :location       # can also be an IP address
-  # after_validation :geocode  # auto-fetch coordinates
-
-
-  def validate_location
-    errors.add(:name, "Location can't be found. Please provide more specific location") if :name.nil?
-  end
-
+  # Used to initialize a new location.
+  # Checks if geocoder comes back with a result for a given location
+  # If geocoder comes back with a result it takes the first record and pulls it from the database or initializes new one
   def self.initialize_from_string(location_str)
     if location_str.is_a?(String) && location_str.present?
-      # in case of 'Szczecin' geocoder will return 7 results. How do we handle that ?
       geocoder_location = Geocoder.search(location_str)
       unless geocoder_location.empty?
         latitude = geocoder_location.first.coordinates[0]
