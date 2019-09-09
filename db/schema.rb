@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 2019_09_01_202623) do
   end
 
   create_table "user_locations", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "location_id"
+    t.integer "user_id", null: false
+    t.integer "location_id", null: false
     t.datetime "start_date"
     t.datetime "end_date"
     t.datetime "created_at", precision: 6, null: false
