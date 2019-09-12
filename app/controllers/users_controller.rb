@@ -2,7 +2,7 @@
 
 # Users controller
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show set_admin]
+  before_action :set_user, only: %i[grant_admin revoke_admin]
 
   # Gets all users
   def index
@@ -10,31 +10,36 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1
-  def show; end
+  def show
+    @user = authorize User.find(params[:id])
+  end
 
-  # PATCH /users/1
-  # Updates user's role
-  def set_admin
-    role = ActiveModel::Type::Boolean.new.cast(role_params[:admin]) ? :admin : nil
-    respond_to do |format|
-      if @user.update(role: role)
-        format.html { redirect_to @user, notice: t('.role_updated') }
-      else
-        flash[:alert] = t('.role_not_updated')
-        format.html { render :show }
-      end
+  # POST /users/:id/admin
+  # Grants admin role
+  def grant_admin
+    if @user.update(role: :admin)
+      redirect_to @user, notice: t('.success')
+    else
+      flash[:alert] = t('.failure')
+      render :show
+    end
+  end
+
+  # DELETE /users/:id/admin
+  # Revokes admin role
+  def revoke_admin
+    if @user.update(role: nil)
+      redirect_to @user, notice: t('.success')
+    else
+      flash[:alert] = t('.failure')
+      render :show
     end
   end
 
   private
 
-  # Sets user by given id
+  # Sets user by given user_id
   def set_user
-    @user = authorize User.find(params[:id])
-  end
-
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def role_params
-    params.require(:role).permit(:admin)
+    @user = authorize User.find(params[:user_id])
   end
 end

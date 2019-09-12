@@ -31,7 +31,7 @@ describe UserPolicy do
     end
   end
 
-  permissions :set_admin? do
+  permissions :grant_admin?, :revoke_admin? do
     it 'denies access if user is not admin' do
       expect(subject).not_to permit(user, admin)
     end

@@ -9,9 +9,12 @@ en:
       users: "Users"
       profile: "Profile"
   users:
-    set_admin:
-      role_updated: "Role has been successfully updated."
-      role_not_updated: "Role has not been updated."
+    grant_admin:
+      success: "Role has been successfully granted."
+      failure: "Role has not been granted."
+    revoke_admin:
+      success: "Role has been successfully revoked."
+      failure: "Role has not been revoked."
     index:
       show: "Show"
       name: "Name"

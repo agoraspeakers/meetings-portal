@@ -12,8 +12,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: %i[index show] do
-    member do
-      patch 'set_admin', to: 'users#set_admin', as: :set_admin
-    end
+    post 'admin', to: 'users#grant_admin'
+    delete 'admin', to: 'users#revoke_admin'
   end
 end

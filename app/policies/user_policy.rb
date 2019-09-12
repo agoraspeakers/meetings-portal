@@ -10,7 +10,11 @@ class UserPolicy < ApplicationPolicy
     record.id.eql?(user&.id) || user&.admin?
   end
 
-  def set_admin?
+  def grant_admin?
     user&.admin?
+  end
+
+  def revoke_admin?
+    grant_admin?
   end
 end
