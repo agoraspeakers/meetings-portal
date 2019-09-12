@@ -2,7 +2,8 @@
 
 # User
 class User < ApplicationRecord
-  enum role: [:admin]
+  enum role: { admin: 'admin', user: 'user' }
+
   before_create :set_first_record_as_admin
 
   # Include default devise modules. Others available are:

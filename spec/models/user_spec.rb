@@ -108,4 +108,17 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe 'Validations' do
+    describe '#role' do
+      context 'when is included in User roles' do
+        it { expect(create(:user, :admin)).to be_truthy }
+        it { expect(create(:user)).to be_truthy }
+      end
+
+      context 'when is not included in User roles' do
+        it { expect { create(:user, role: :invalid_role) }.to raise_error(ArgumentError) }
+      end
+    end
+  end
 end

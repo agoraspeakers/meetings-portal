@@ -5,7 +5,7 @@ require 'rails_helper'
 describe UserPolicy do
   subject { described_class }
   let!(:admin)  { create(:user, role: :admin) }
-  let!(:user) { create(:user, role: nil) }
+  let!(:user) { create(:user, role: :user) }
 
   permissions :index? do
     it 'denies access if user is not admin' do

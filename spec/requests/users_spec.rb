@@ -4,8 +4,8 @@ require 'rails_helper'
 
 RSpec.describe UsersController, type: :request do
   let(:users) { create_list(:user, 10) }
-  let(:admin) { users.find { |u| u.role.eql? 'admin' } }
-  let(:user) { users.find { |u| u.role.eql? nil } }
+  let(:admin) { users.find { |u| u.role.eql? User.roles[:admin] } }
+  let(:user) { users.find { |u| u.role.eql? User.roles[:user] } }
   let(:logged_user) {}
   before { sign_in logged_user }
 
@@ -43,7 +43,7 @@ RSpec.describe UsersController, type: :request do
       end
 
       context 'when user shows other user profile' do
-        let(:logged_user) { users.find { |u| u.role.eql?(nil) && u.id != user.id } }
+        let(:logged_user) { users.find { |u| u.role.eql?(User.roles[:user]) && u.id != user.id } }
 
         it { expect(response).to have_http_status(302) }
         it { expect(response).to redirect_to(root_path) }
