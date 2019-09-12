@@ -9,12 +9,6 @@ en:
       users: "Users"
       profile: "Profile"
   users:
-    grant_admin:
-      success: "Role has been successfully granted."
-      failure: "Role has not been granted."
-    revoke_admin:
-      success: "Role has been successfully revoked."
-      failure: "Role has not been revoked."
     index:
       show: "Show"
       name: "Name"
@@ -27,5 +21,13 @@ en:
       is_admin: "Is admin?"
       admin_settings: "Admin settings"
       set_user_role: "Set user role"
+    admin:
+      create:
+        success: "Admin role has been successfully granted."
+        failure: "Admin role has not been granted."
+      destroy:
+        success: "Admin role has been successfully revoked."
+        failure: "Admin role has not been revoked."
+        cant_remove_last_admin: "Can not remove last administrator"
   policy:
     not_authorized: "You are not authorized to perform this action."
