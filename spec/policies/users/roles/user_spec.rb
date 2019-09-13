@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Users::RolesAdmin::UserPolicy do
+describe Users::Roles::UserPolicy do
   subject { described_class }
   let!(:admin)  { create(:user, role: :admin) }
   let!(:user) { create(:user, role: :user) }

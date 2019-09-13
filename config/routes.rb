@@ -12,6 +12,6 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: %i[index show] do
-    resource :admin, only: %i[create destroy], controller: 'users/admin'
+    resource :roles, only: %i[create destroy], controller: 'users/roles'
   end
 end

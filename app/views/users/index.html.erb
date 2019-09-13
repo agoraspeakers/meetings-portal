@@ -4,7 +4,7 @@
     <tr>
       <th scope="col"><%=t('.name') %></th>
       <th scope="col"><%=t('.email') %></th>
-      <th scope="col"><%=t('users.user.is_admin') %></th>
+      <th scope="col"><%=t('users.user.role') %></th>
       <th scope="col"></th>
     </tr>
     </thead>
@@ -13,7 +13,7 @@
       <tr>
         <td> <%= user.name %></td>
         <td> <%= user.email %></td>
-        <td> <%= user.admin? %></td>
+        <td> <%= user.role %></td>
         <td>
           <%= link_to t('.show'), user_path(user) %>
         </td>

@@ -3,19 +3,28 @@
     <h5 class="card-title"><%= user.name %></h5>
     <h6 class="card-subtitle mb-2 text-muted"><%= user.email %></h6>
     <div class="card-body">
-      <p class="card-text"><%= t('users.user.is_admin') %> : <%= user.admin? %></p>
-      <% if current_user&.admin? %>
+      <% if user.banned? %>
+        <p class="alert alert-danger">User is banned!</p>
+      <% else %>
+        <p class="card-text"><%= t('users.user.role') %> : <%= user.role %></p>
+      <% end %>
+
+      <% if current_user&.admin? && !user.banned? %>
         <hr>
         <h5><%= t('.admin_settings') %>:</h5>
-        <div class="card-text"><%= t('.set_user_role') %>: <br>
-          <%= form_tag(user_admin_path(user), method: (user.admin? ? :delete : :post), class: "form") do %>
-            <div class="form-group mb-2">
-              <%= hidden_field_tag 'role[admin]', false %>
-              <%= check_box_tag 'role[admin]', true, user.admin? %>
-              <%= label_tag t('.admin') %>
-            </div>
-            <%= submit_tag t('.save'), class: "btn btn-primary mb-2" %>
-          <% end %>
+        <div class="container">
+          <div class="row">
+            <% if user.admin? %>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <%= link_to t('.admin.revoke'), user_roles_path(user, role_name: user.role), class: 'btn btn-warning', method: :delete %>
+              </div>
+            <% else %>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <%= link_to t('.admin.grant'), user_roles_path(user, role_name: :admin), class: 'btn btn-primary', method: :post %>
+                <%= link_to t('.ban'), user_roles_path(user, role_name: :banned), class: 'btn btn-danger', method: :post %>
+              </div>
+            <% end %>
+          </div>
         </div>
       <% end %>
     </div>

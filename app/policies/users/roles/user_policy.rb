@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
-# User Policy
+# Users module
 module Users
-  module RolesAdmin
+  # Roles module
+  module Roles
+    # User Policy
     class UserPolicy < ApplicationPolicy
       def create?
         user&.admin?

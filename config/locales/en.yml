@@ -16,18 +16,24 @@ en:
     show:
       user_profile: "User profile"
     user:
-      admin: "Admin"
+      admin:
+        revoke: "Revoke admin role"
+        grant: "Grant admin role"
       save: "Save"
-      is_admin: "Is admin?"
+      role: "Role"
       admin_settings: "Admin settings"
-      set_user_role: "Set user role"
-    admin:
-      create:
-        success: "Admin role has been successfully granted."
-        failure: "Admin role has not been granted."
-      destroy:
-        success: "Admin role has been successfully revoked."
-        failure: "Admin role has not been revoked."
+      ban: "Ban"
+    roles:
+      illegal: "Illegal role: %{role}"
+      not_assigned: "User have not role: %{role}"
+      grant:
+        success: "Role %{role} has been successfully granted."
+        failure: "Role %{role} has not been granted."
+        is_banned: "Cannot grant role: user is banned"
+      revoke:
+        success: "Role %{role} has been successfully revoked."
+        failure: "Role %{role} has not been revoked."
         cant_remove_last_admin: "Can not remove last administrator"
+        cant_revoke_banned_role: "Can not revoke banned role"
   policy:
     not_authorized: "You are not authorized to perform this action."

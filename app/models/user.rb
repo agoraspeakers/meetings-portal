@@ -2,7 +2,7 @@
 
 # User
 class User < ApplicationRecord
-  enum role: { admin: 'admin', user: 'user' }
+  enum role: { admin: 'admin', user: 'user', banned: 'banned' }
 
   before_create :set_first_record_as_admin
 
