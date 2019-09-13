@@ -9,12 +9,4 @@ class UserPolicy < ApplicationPolicy
   def show?
     record.id.eql?(user&.id) || user&.admin?
   end
-
-  def grant_admin?
-    user&.admin?
-  end
-
-  def revoke_admin?
-    grant_admin?
-  end
 end

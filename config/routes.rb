@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: %i[index show] do
-    post 'admin', to: 'users#grant_admin'
-    delete 'admin', to: 'users#revoke_admin'
+    resource :admin, only: %i[create destroy], controller: 'users/admin'
   end
 end
