@@ -1,0 +1,32 @@
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title"><%= user.name %></h5>
+    <h6 class="card-subtitle mb-2 text-muted"><%= user.email %></h6>
+    <div class="card-body">
+      <% if user.banned? %>
+        <p class="alert alert-danger">User is banned!</p>
+      <% else %>
+        <p class="card-text"><%= t('users.user.role') %> : <%= user.role %></p>
+      <% end %>
+
+      <% if current_user&.admin? && !user.banned? %>
+        <hr>
+        <h5><%= t('.admin_settings') %>:</h5>
+        <div class="container">
+          <div class="row">
+            <% if user.admin? %>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <%= link_to t('.admin.revoke'), user_roles_path(user, role_name: user.role), class: 'btn btn-warning', method: :delete %>
+              </div>
+            <% else %>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <%= link_to t('.admin.grant'), user_roles_path(user, role_name: :admin), class: 'btn btn-primary', method: :post %>
+                <%= link_to t('.ban'), user_roles_path(user, role_name: :banned), class: 'btn btn-danger', method: :post %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

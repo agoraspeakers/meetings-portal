@@ -5,6 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'rails', '~> 6.0'
 
+gem 'bundled-without'
 gem 'contracts'
 gem 'database_validations'
 gem 'devise'
@@ -13,11 +14,10 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-rails_csrf_protection'
 gem 'puma', '~> 3.11'
+gem 'pundit'
 gem 'rubocop', require: false
 gem 'sqlite3'
 gem 'webpacker', '~> 4.0', '>= 4.0.7'
-
-gem 'bundled-without'
 
 group :development, :test do
   gem 'factory_bot_rails'

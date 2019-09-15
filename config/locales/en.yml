@@ -1,5 +1,39 @@
 en:
   layouts:
-    application:
-      home: "Home"
+    navigation:
       title: "Meetings portal"
+      home: "Home"
+      sign_in_with_facebook: "Sign in with Facebook"
+      login: "Login"
+      logout: "Logout"
+      users: "Users"
+      profile: "Profile"
+  users:
+    index:
+      show: "Show"
+      name: "Name"
+      email: "Email"
+    show:
+      user_profile: "User profile"
+    user:
+      admin:
+        revoke: "Revoke admin role"
+        grant: "Grant admin role"
+      save: "Save"
+      role: "Role"
+      admin_settings: "Admin settings"
+      ban: "Ban"
+    roles:
+      illegal: "Illegal role: %{role}"
+      not_assigned: "User have not role: %{role}"
+      grant:
+        success: "Role %{role} has been successfully granted."
+        failure: "Role %{role} has not been granted."
+        is_banned: "Cannot grant role: user is banned"
+      revoke:
+        success: "Role %{role} has been successfully revoked."
+        failure: "Role %{role} has not been revoked."
+        cant_remove_last_admin: "Can not remove last administrator"
+        cant_revoke_banned_role: "Can not revoke banned role"
+  policy:
+    not_authorized: "You are not authorized to perform this action."

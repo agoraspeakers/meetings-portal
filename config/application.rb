@@ -35,5 +35,11 @@ module MeetingsPortal
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.generators do |generate|
+      generate.helper false
+      generate.assets false
+      generate.stylesheets false
+    end
   end
 end

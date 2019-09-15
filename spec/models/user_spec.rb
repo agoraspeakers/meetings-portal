@@ -3,6 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  let(:auth) do
+    OmniAuth::AuthHash.new(
+      provider: 'facebook',
+      uid: Faker::Internet.unique.uuid,
+      info: { email: Faker::Internet.unique.email, name: Faker::Name.name, image: nil }
+    )
+  end
+
   describe '#new_with_session' do
     subject { User.new_with_session(params, session) }
     let(:params) { {} }
@@ -63,14 +71,6 @@ RSpec.describe User, type: :model do
     end
 
     context 'when user does not exist' do
-      let(:auth) do
-        OmniAuth::AuthHash.new(
-          provider: 'facebook',
-          uid: Faker::Internet.unique.uuid,
-          info: { email: Faker::Internet.unique.email, name: Faker::Name.name, image: nil }
-        )
-      end
-
       it 'creates new user with given provider and uid fields' do
         expect { subject }.to change(User, :count).by(1)
       end
@@ -79,6 +79,45 @@ RSpec.describe User, type: :model do
         expect(subject.email).to eq(auth.info.email)
         expect(subject.name).to eq(auth.info.name)
         expect(subject.image).to eq(auth.info.image)
+      end
+    end
+  end
+
+  describe 'Callbacks' do
+    context 'before_create set_first_record_as_admin' do
+      subject! { create(:user) }
+
+      it { expect(subject.admin?).to be_truthy }
+
+      context 'when adding next user' do
+        context 'when scope is added' do
+          let(:second_user) { User.from_omniauth(auth) }
+
+          it 'creates normal user' do
+            expect(second_user.admin?).to be_falsey
+          end
+        end
+
+        context 'when scope is not added' do
+          let(:second_user) { create(:user) }
+
+          it 'creates normal user' do
+            expect(second_user.admin?).to be_falsey
+          end
+        end
+      end
+    end
+  end
+
+  describe 'Validations' do
+    describe '#role' do
+      context 'when is included in User roles' do
+        it { expect(create(:user, :admin)).to be_truthy }
+        it { expect(create(:user)).to be_truthy }
+      end
+
+      context 'when is not included in User roles' do
+        it { expect { create(:user, role: :invalid_role) }.to raise_error(ArgumentError) }
       end
     end
   end

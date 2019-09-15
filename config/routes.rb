@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  root to: 'pages#index'
+
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
@@ -9,5 +11,7 @@ Rails.application.routes.draw do
     match 'users/auth/failure', to: 'users/omniauth_callbacks#failure', via: %i[get post]
   end
 
-  root to: 'pages#index'
+  resources :users, only: %i[index show] do
+    resource :roles, only: %i[create destroy], controller: 'users/roles'
+  end
 end
