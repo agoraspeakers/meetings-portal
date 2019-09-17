@@ -9,37 +9,7 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#"><%= t('.title') %></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <!-- Left navigation -->
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#"><%= t('.home') %><span class="sr-only">(current)</span></a>
-      </li>
-    </ul>
-    <!-- Right navigation -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Nav Item - User authentication -->
-      <% if current_user %>
-        <li class="nav-item active">
-          <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: 'nav-link' %>
-        </li>
-      <% else %>
-        <li class="nav-item active">
-          <%= link_to 'Sign in with Facebook', user_facebook_omniauth_authorize_path, method: :post, class: 'nav-link' %>
-        </li>
-        <li class="nav-item active">
-          <%= link_to 'Login', new_user_session_path, class: 'nav-link' %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-</nav>
+<%= component('navigation') %>
 
 <div class="container-fluid">
   <% if notice %>

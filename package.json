@@ -23,7 +23,7 @@
     "webpack-dev-server": "^3.8.0"
   },
   "scripts": {
-    "stylelint-all": "stylelint app/javascript/stylesheets",
-    "eslint-all": "eslint app/javascript/ --ext .ts,.tsx"
+    "stylelint-all": "stylelint frontend",
+    "eslint-all": "eslint frontend/ --ext .ts,.tsx"
   }
 }

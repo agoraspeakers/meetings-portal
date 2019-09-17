@@ -16,9 +16,14 @@
 // const imagePath = (name) => images(name, true)
 // import "./application.scss";
 
-import '../stylesheets/application.scss';
+import '../init';
+import Navigation from '../components/navigation/navigation';
 
 require('@rails/ujs').start();
 require('turbolinks').start();
 require('@rails/activestorage').start();
-require('channels');
+require('@rails/actioncable');
+
+document.addEventListener('turbolinks:load', () => {
+  Navigation.setActiveItem();
+});
