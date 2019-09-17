@@ -1,22 +1,27 @@
 module.exports = {
-  extends: ["eslint-config-airbnb-base"],
-
   env: {
     browser: true
   },
+  // Loads ESLint rules
+  extends: [
+    "airbnb-base",
+    "eslint:recommended",
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/recommended",
+  ],
 
-  parser: "babel-eslint",
+  parser: "@typescript-eslint/parser",
+  plugins: ["import", "@typescript-eslint"],
 
   settings: {
     "import/resolver": {
-      webpack: {
-        config: {
-          resolve: {
-            extensions: [".js", ".ts"],
-            modules: ["app/javascript", "node_modules"]
-          }
-        }
-      }
+      node: {
+        extensions: [".tsx", ".ts"]
+      },
+      "eslint-import-resolver-typescript": true,
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".tsx", ".ts"]
     }
   },
 
