@@ -12,7 +12,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-rails_csrf_protection'
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 4.3'
 gem 'rubocop', require: false
 gem 'sqlite3'
 gem 'webpacker', '~> 4.0', '>= 4.0.7'
